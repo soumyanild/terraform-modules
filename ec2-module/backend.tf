@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
-    bucket = "terraform-soumyanild"
-    key    = "terraform-project/Backend/terraform.tfstate"
+    bucket = "soumyanil-bucket"
+    key    = "terraform-project/ec2/terraform.tfstate"
     region = "ap-south-1"
 
   }
