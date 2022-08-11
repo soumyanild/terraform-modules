@@ -8,7 +8,7 @@ username             = "soumyanil"
 password             = "nilzyboy37"
 skip_final_snapshot  = false
 }
-resource "aws_db_instance" "rds_test" {
+resource "aws_db_instance" "rds_demo" {
 allocated_storage    = 10
 engine               = "mysql"
 engine_version       = "5.7"
