@@ -13,17 +13,17 @@ pipeline {
                 '''
             }
         }
-        stage('terraform action') {
+        stage('terraform infrastructure') {
             steps {
                 script {
                     sh'''
-                    cd ${WORKSPACE}/terraform-modules
+                    cd terraform-modules
                     '''
                     if (infrastructure == "${infrastructure}") {
                         if (action == "plan"){
                         sh '''
                         echo "Terraform infrastructure is --> ${infrastructure}"
-                        cd ${infrastructure}-module
+                        cd terraform-modules/${infrastructure}-module
                         terraform init
                         terraform plan
                         '''
