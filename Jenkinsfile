@@ -13,7 +13,7 @@ pipeline {
                 '''
             }
         }
-        stage('terraform infrastructure') {
+        stage('terraform action') {
             steps {
                 script {
                     sh'''
@@ -33,7 +33,7 @@ pipeline {
                         if (action == "apply"){
                         sh '''
                         echo "Terraform infrastructure is --> ${infrastructure}"
-                        cd ${WORKSPACE}/terraform-modules/${infrastructure}-module
+                        cd terraform-modules/${infrastructure}-module
                         terraform init
                         terraform plan
                         terraform apply --auto-approve
@@ -44,7 +44,7 @@ pipeline {
                         if (action == "destroy"){
                         sh '''
                         echo "Terraform infrastructure is --> ${infrastructure}"
-                        cd ${WORKSPACE}/terraform-modules/${infrastructure}-module
+                        cd terraform-modules/${infrastructure}-module
                         terraform init
                         terraform plan -destroy
                         terraform destroy --auto-approve
