@@ -8,7 +8,7 @@ data "terraform_remote_state" "vpc" {
 }
 
 resource "aws_db_subnet_group" "db-subnet-group" {
-subnet_ids = ["${data.terraform_remote_state.vpc.dev_private_1_id}" , "${data.terraform_remote_state.vpc.dev_private_2_id}"]
+subnet_ids = ["${data.terraform_remote_state.vpc.outputs.dev_private_1_id}" , "${data.terraform_remote_state.vpc.outputs.dev_private_2_id}"]
 }
 
 resource "aws_db_instance" "private_rds" {
