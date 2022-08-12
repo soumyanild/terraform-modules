@@ -1,3 +1,4 @@
+# Creating VPC,name, CIDR and Tags
 resource "aws_vpc" "dev" {
   cidr_block           = "10.0.0.0/16"
   instance_tenancy     = "default"
@@ -6,7 +7,6 @@ resource "aws_vpc" "dev" {
   enable_classiclink   = "false"
   tags = {
     Name = "dev"
-    IAC = "True"
   }
 }
 
@@ -19,19 +19,39 @@ resource "aws_subnet" "dev-public-1" {
 
   tags = {
     Name = "dev-public-1"
-    IAC = "True"
+  }
+}
+
+resource "aws_subnet" "dev-public-2" {
+  vpc_id                  = aws_vpc.dev.id
+  cidr_block              = "10.0.2.0/24"
+  map_public_ip_on_launch = "true"
+  availability_zone       = "ap-south-1b"
+
+  tags = {
+    Name = "dev-public-1"
+  }
+}
+
+resource "aws_subnet" "dev-private-1" {
+  vpc_id                  = aws_vpc.dev.id
+  cidr_block              = "10.0.3.0/24"
+  map_public_ip_on_launch = "false"
+  availability_zone       = "ap-south-1a"
+
+  tags = {
+    Name = "dev-private-2"
   }
 }
 
 resource "aws_subnet" "dev-private-2" {
   vpc_id                  = aws_vpc.dev.id
-  cidr_block              = "10.0.2.0/24"
+  cidr_block              = "10.0.4.0/24"
   map_public_ip_on_launch = "false"
   availability_zone       = "ap-south-1b"
 
   tags = {
     Name = "dev-private-2"
-    IAC = "True"
   }
 }
 
@@ -41,7 +61,6 @@ resource "aws_internet_gateway" "dev-gw" {
 
   tags = {
     Name = "dev"
-    IAC = "True"
   }
 }
 
@@ -55,13 +74,17 @@ resource "aws_route_table" "dev-public" {
 
   tags = {
     Name = "dev-public-1"
-    IAC = "True"
   }
 }
 
 # Creating Route Associations public subnets
 resource "aws_route_table_association" "dev-public-1-a" {
   subnet_id      = aws_subnet.dev-public-1.id
+  route_table_id = aws_route_table.dev-public.id
+}
+
+resource "aws_route_table_association" "dev-public-2-a" {
+  subnet_id      = aws_subnet.dev-public-2.id
   route_table_id = aws_route_table.dev-public.id
 }
 
@@ -86,13 +109,22 @@ resource "aws_route_table" "dev-private" {
 
   tags = {
     Name = "dev-private-2"
-    IAC = "True"
   }
 }
 
 # Creating route associations for private Subnets
+resource "aws_route_table_association" "dev-private-1-a" {
+  subnet_id      = aws_subnet.dev-private-1.id
+  route_table_id = aws_route_table.dev-private.id
+}
+
 resource "aws_route_table_association" "dev-private-2-a" {
   subnet_id      = aws_subnet.dev-private-2.id
   route_table_id = aws_route_table.dev-private.id
 }
 
+
+resource "aws_db_subnet_group" "db-subnet-group" {
+
+subnet_ids = ["${aws_subnet.dev-private-1.id}" , "${aws_subnet.dev-private-2.id}"]
+}
