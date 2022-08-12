@@ -23,7 +23,7 @@ pipeline {
                         if (action == "plan"){
                         sh '''
                         echo "Terraform infrastructure is --> ${infrastructure}"
-                        cd ${infrastructure}-module
+                        cd ${infrastructure}
                         terraform init
                         terraform plan
                         '''
