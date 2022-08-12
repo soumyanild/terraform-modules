@@ -13,5 +13,5 @@ db_subnet_group_name = "${aws_db_subnet_group.db-subnet-group.name}"
 }
 
 module "aws_db_subnet_group" {
-  source = "./terraform-modules/subnet-module"
+  source = "/terraform-modules/subnet-module"
 }
