@@ -122,9 +122,3 @@ resource "aws_route_table_association" "dev-private-2-a" {
   subnet_id      = aws_subnet.dev-private-2.id
   route_table_id = aws_route_table.dev-private.id
 }
-
-
-resource "aws_db_subnet_group" "db-subnet-group" {
-
-subnet_ids = ["${aws_subnet.dev-private-1.id}" , "${aws_subnet.dev-private-2.id}"]
-}
