@@ -23,7 +23,7 @@ resource "aws_instance" "public_instance" {
 resource "aws_instance" "private_instance" {
   ami           = "ami-0c1a7f89451184c8b"
   instance_type = "t2.micro"
-  subnet_id = "${aws_subnet.dev-private-2.id}"
+  subnet_id = "subnet-022165498b59b0688"
   
   tags = {
     Name = "EC2-Module-2"
