@@ -19,201 +19,41 @@ pipeline {
                     sh'''
                     cd ${WORKSPACE}/terraform-modules
                     '''
-                    if (infrastructure == "ec2") {
-                        if (action == "init"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/ec2-module
-                        terraform init
-                        '''
-                        }else {
-                        echo "Skipping ec2 init"
-                        }
+                    if (infrastructure == "${infrastructure}") {
                         if (action == "plan"){
                         sh '''
-                        cd ${WORKSPACE}/terraform-modules/ec2-module
+                        echo "Terraform infrastructure is --> ${infrastructure}"
+                        cd ${WORKSPACE}/terraform-modules/${infrastructure}-module
                         terraform init
                         terraform plan
                         '''
                         }else {
-                        echo "Skipping ec2 plan"
+                            echo "Skipping ${infrastructure} plan"
                         }
                         if (action == "apply"){
                         sh '''
-                        cd ${WORKSPACE}/terraform-modules/ec2-module
+                        echo "Terraform infrastructure is --> ${infrastructure}"
+                        cd ${WORKSPACE}/terraform-modules/${infrastructure}-module
                         terraform init
                         terraform plan
                         terraform apply --auto-approve
                         '''
                         }else {
-                        echo "Skipping ec2 apply"
+                            echo "Skipping ${infrastructure} apply"
                         }
                         if (action == "destroy"){
                         sh '''
-                        cd ${WORKSPACE}/terraform-modules/ec2-module
+                        echo "Terraform infrastructure is --> ${infrastructure}"
+                        cd ${WORKSPACE}/terraform-modules/${infrastructure}-module
                         terraform init
                         terraform plan -destroy
                         terraform destroy --auto-approve
                         '''
                         }else {
-                        echo "Skipping ec2 destroy"
+                            echo "Skipping ${infrastructure} destroy"
                         }
                     }
-                    if (infrastructure == "S3") {
-                        if (action == "init"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/S3-module
-                        terraform init
-                        '''
-                        }else {
-                        echo "Skipping S3 init"
-                        }
-                        if (action == "plan"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/S3-module
-                        terraform init
-                        terraform plan
-                        '''
-                        }else {
-                        echo "Skipping S3 plan"
-                        }
-                        if (action == "apply"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/S3-module
-                        terraform init
-                        terraform plan
-                        terraform apply --auto-approve
-                        '''
-                        }else {
-                        echo "Skipping S3 apply"
-                        }
-                        if (action == "destroy"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/S3-module
-                        terraform init
-                        terraform plan -destroy
-                        terraform destroy --auto-approve
-                        '''
-                        }else {
-                        echo "Skipping S3 destroy"
-                        }
-                    }
-                    if (infrastructure == "rds") {
-                        if (action == "init"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/rds-module
-                        terraform init
-                        '''
-                        }else {
-                        echo "Skipping rds init"
-                        }
-                        if (action == "plan"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/rds-module
-                        terraform init
-                        terraform plan
-                        '''
-                        }else {
-                        echo "Skipping rds plan"
-                        }
-                        if (action == "apply"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/rds-module
-                        terraform init
-                        terraform plan
-                        terraform apply --auto-approve
-                        '''
-                        }else {
-                        echo "Skipping rds apply"
-                        }
-                        if (action == "destroy"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/rds-module
-                        terraform init
-                        terraform plan -destroy
-                        terraform destroy --auto-approve
-                        '''
-                        }else {
-                        echo "Skipping rds destroy"
-                        }
-                    }
-                    if (infrastructure == "vpc") {
-                        if (action == "init"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/vpc-module
-                        terraform init
-                        '''
-                        }else {
-                        echo "Skipping vpc init"
-                        }
-                        if (action == "plan"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/vpc-module
-                        terraform init
-                        terraform plan
-                        '''
-                        }else {
-                        echo "Skipping vpc plan"
-                        }
-                        if (action == "apply"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/vpc-module
-                        terraform init
-                        terraform plan
-                        terraform apply --auto-approve
-                        '''
-                        }else {
-                        echo "Skipping vpc apply"
-                        }
-                        if (action == "destroy"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/vpc-module
-                        terraform init
-                        terraform plan -destroy
-                        terraform destroy --auto-approve
-                        '''
-                        }else {
-                        echo "Skipping vpc destroy"
-                        }
-                    }
-                    if (infrastructure == "subnet") {
-                        if (action == "init"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/subnet-module
-                        terraform init
-                        '''
-                        }else {
-                        echo "Skipping subnet init"
-                        }
-                        if (action == "plan"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/subnet-module
-                        terraform init
-                        terraform plan
-                        '''
-                        }else {
-                        echo "Skipping subnet plan"
-                        }
-                        if (action == "apply"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/subnet-module
-                        terraform init
-                        terraform plan
-                        terraform apply --auto-approve
-                        '''
-                        }else {
-                        echo "Skipping subnet apply"
-                        }
-                        if (action == "destroy"){
-                        sh '''
-                        cd ${WORKSPACE}/terraform-modules/subnet-module
-                        terraform init
-                        terraform plan -destroy
-                        terraform destroy --auto-approve
-                        '''
-                        }else {
-                        echo "Skipping subnet destroy"
-                        }
-                    }
+                    
                 }
             }
         }
