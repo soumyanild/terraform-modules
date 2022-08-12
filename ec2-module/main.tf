@@ -13,7 +13,7 @@ terraform {
 resource "aws_instance" "public_instance" {
   ami           = "ami-0c1a7f89451184c8b"
   instance_type = "t2.micro"
-  subnet_id = "${aws_subnet.dev-public-1.id}"
+  subnet_id = "subnet-04a3c861a566c63cf"
 
   tags = {
     Name = "EC2-Module-1"
