@@ -1,6 +1,6 @@
 data "terraform_remote_state" "vpc" {
     backend = "s3"
-    config {
+    config = {
         bucket  = "terraform-soumyanild"
         key     = "terraform-project/subnet-module/terraform.tfstate"
         region  = "ap-south-1"
