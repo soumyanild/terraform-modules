@@ -22,7 +22,7 @@ data "terraform_remote_state" "vpc" {
 resource "aws_instance" "public_instance" {
   ami           = "ami-0c1a7f89451184c8b"
   instance_type = "t2.micro"
-  subnet_id = "${data.terraform_remote_state.vpc.dev_public_1_id}"
+  subnet_id = "${data.terraform_remote_state.vpc.outputs.dev_public_1_id}"
 
   tags = {
     Name = "EC2-Module-1"
@@ -32,7 +32,7 @@ resource "aws_instance" "public_instance" {
 resource "aws_instance" "private_instance" {
   ami           = "ami-0c1a7f89451184c8b"
   instance_type = "t2.micro"
-  subnet_id = "${data.terraform_remote_state.vpc.dev_private_2_id}"
+  subnet_id = "${data.terraform_remote_state.vpc.outputs.dev_private_2_id}"
   
   tags = {
     Name = "EC2-Module-2"
