@@ -10,10 +10,19 @@ terraform {
     }
 }
 
+data "terraform_remote_state" "vpc" {
+    backend = "s3"
+    config {
+        bucket  = "terraform-soumyanild"
+        key     = "terraform-project/subnet-module/terraform.tfstate"
+        region  = "ap-south-1"
+    }
+}
+
 resource "aws_instance" "public_instance" {
   ami           = "ami-0c1a7f89451184c8b"
   instance_type = "t2.micro"
-  subnet_id = "subnet-04a3c861a566c63cf"
+  subnet_id = "${data.terraform_remote_state.vpc.dev_public_1_id}"
 
   tags = {
     Name = "EC2-Module-1"
@@ -23,7 +32,7 @@ resource "aws_instance" "public_instance" {
 resource "aws_instance" "private_instance" {
   ami           = "ami-0c1a7f89451184c8b"
   instance_type = "t2.micro"
-  subnet_id = "subnet-022165498b59b0688"
+  subnet_id = "${data.terraform_remote_state.vpc.dev_private_2_id}"
   
   tags = {
     Name = "EC2-Module-2"
