@@ -2,7 +2,7 @@ output "dev_public_1_id" {
   description = "Public Subnet 1 id"
   value       = "${aws_subnet.dev-public-1.id}"
 }
-output "dev_public_1_id" {
+output "dev_public_2_id" {
   description = "Public Subnet 2 id"
   value       = "${aws_subnet.dev-public-2.id}"
 }
