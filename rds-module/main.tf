@@ -1,10 +1,13 @@
-resource "aws_db_instance" "rds_test" {
-allocated_storage    = 10
+resource "aws_db_instance" "private_rds" {
+allocated_storage    = 20
 engine               = "mysql"
 engine_version       = "5.7"
 instance_class       = "db.t2.micro"
-identifier           = "rds-module"
+identifier           = "another-test-db"
+db_name              = "mysqltestdb"
 username             = "soumyanil"
-password             = "nilzyboy37"
-skip_final_snapshot  = false
+password             = "code1234"
+publicly_accessible  = false
+skip_final_snapshot  = true
+db_subnet_group_name = "${aws_db_subnet_group.db-subnet-group.name}"
 }
