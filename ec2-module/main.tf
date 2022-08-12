@@ -10,12 +10,22 @@ terraform {
     }
 }
 
-resource "aws_instance" "public_inst_1" {
+resource "aws_instance" "public_instance" {
   ami           = "ami-0c1a7f89451184c8b"
   instance_type = "t2.micro"
+  subnet_id = "${aws_subnet.dev-public-1.id}"
 
   tags = {
-    Name = "EC2-Module"
-    IAC = "True"
+    Name = "EC2-Module-1"
+  }
+}
+
+resource "aws_instance" "private_instance" {
+  ami           = "ami-0c1a7f89451184c8b"
+  instance_type = "t2.micro"
+  subnet_id = "${aws_subnet.dev-private-2.id}"
+  
+  tags = {
+    Name = "EC2-Module-2"
   }
 }
