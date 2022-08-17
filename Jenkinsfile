@@ -13,7 +13,7 @@ pipeline {
                 '''
             }
         }
-        stage('terraform action') {
+        stage('terraform plan') {
             steps {
                 script {
                     sh'''
@@ -30,6 +30,17 @@ pipeline {
                         }else {
                             echo "Skipping ${infrastructure} plan"
                         }
+                    }
+                }
+            }
+        }
+        stage('terraform apply') {
+            steps {
+                script {
+                    sh'''
+                    cd terraform-modules
+                    '''
+                    if (infrastructure == "${infrastructure}") {
                         if (action == "apply"){
                         sh '''
                         echo "Terraform infrastructure is --> ${infrastructure}"
@@ -41,6 +52,17 @@ pipeline {
                         }else {
                             echo "Skipping ${infrastructure} apply"
                         }
+                    }
+                }
+            }
+        }
+        stage('terraform destroy') {
+            steps {
+                script {
+                    sh'''
+                    cd terraform-modules
+                    '''
+                    if (infrastructure == "${infrastructure}") {
                         if (action == "destroy"){
                         sh '''
                         echo "Terraform infrastructure is --> ${infrastructure}"
@@ -53,7 +75,6 @@ pipeline {
                             echo "Skipping ${infrastructure} destroy"
                         }
                     }
-                    
                 }
             }
         }
