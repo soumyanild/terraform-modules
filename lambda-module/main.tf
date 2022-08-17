@@ -30,7 +30,7 @@ resource "aws_iam_policy" "iam_policy_for_lamda" {
         "Action": [
             "logs:CreateLogGroup",
             "logs:CreateLogStream"
-            "logs:PutLogEvents",
+            "logs:PutLogEvents"
         ],
         "Resource": "arn:aws:logs:*:*:*",
         "Effect": "Allow"
